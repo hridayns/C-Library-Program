@@ -1,3 +1,4 @@
+//--------------------------HEADER FILES USED-------------------------------
 #include<fstream.h>
 #include<conio.h>
 #include<process.h>
@@ -5,20 +6,22 @@
 #include<iomanip.h>
 #include<stdio.h>
 #include<ctype.h>
+//--------------------------------------------------------------------------
+
+//---------------GLOBAL VARIABLES AND FUNCTION PROTOTYPES-------------------
 
 char session_user[20];
-
 void main_screen();
 void admin_access();
 void mem_login();
-
+//--------------------------------------------------------------------------
 
 
 
 //-------------------------CLASSES-----------------------------------
 
 
-//--------------------Class BOOKS--------------------------
+//--------------------------CLASS BOOKS------------------------------
 
 class books
 {
@@ -30,12 +33,14 @@ class books
   char avail[20];
 
   public:
-
+//-----------------CONSTRUCTOR OF CLASS BOOKS-------------------------------
   books()
   {
    strcpy(avail,"Available");
   }
+//--------------------------------------------------------------------------
 
+//-------------------------GETTER FUNCTIONS---------------------------------
   char* get_book_avail()
   {
    return avail;
@@ -56,7 +61,9 @@ class books
   {
    return book_description;
   }
+//--------------------------------------------------------------------------
 
+//-----------------FUNCTION TO GET NEW BOOK DETAILS------------------------
   void new_book_details()
   {
    clrscr();
@@ -65,7 +72,9 @@ class books
    cout<<"\nCategory: ";assign_category();
    cout<<"\nDescription: ";gets(book_description);
   }
+//--------------------------------------------------------------------------
 
+//-----------------FUNCTION TO SHOW BOOK DETAILS----------------------------
  void show_book_details()
   {
    cout<<"\nName of Book:\t"<<strupr(book_name)<<"\n";
@@ -75,18 +84,23 @@ class books
    cout<<"\n\nPress any key to show next book\n";
    getch();
   }
+//--------------------------------------------------------------------------
 
-  void assign_category();
+//-------------------FUNCTIONS ON BOOKS IN CLASS BOOKS----------------------
   void add_book();
+  void assign_category();
   void remove_book();
   void modify_book();
   void display_books();
   void change_avail_borrowed(char b_name[]);
   void change_avail_available(char b_name[]);
+//--------------------------------------------------------------------------
 };
 
 books book;
+//--------------------------------------------------------------------------
 
+//-----------------FUNCTION TO MAKE BOOK BORROWED---------------------------
 void books::change_avail_borrowed(char b_name[20])
 {
  int pos;
@@ -109,8 +123,9 @@ void books::change_avail_borrowed(char b_name[20])
   book_mod.close();
 
 }
+//--------------------------------------------------------------------------
 
-
+//---------------------FUNCTION TO MAKE BOOK AVAILABLE----------------------
 void books::change_avail_available(char b_name[20])
 {
  int pos;
@@ -132,8 +147,9 @@ void books::change_avail_available(char b_name[20])
  }
   book_mod.close();
 }
+//--------------------------------------------------------------------------
 
-
+//-------------------FUNCTION TO ASSIGN CATEGORY----------------------------
 void books::assign_category()
   {
    int k;
@@ -182,8 +198,9 @@ void books::assign_category()
     break;
    }
   }
+//--------------------------------------------------------------------------
 
-
+//--------------------FUNCTION TO MODIFY BOOKS------------------------------
 void books::modify_book()
 {
  char ch = 'y';
@@ -222,8 +239,9 @@ void books::modify_book()
  }
 while(ch=='y' || ch=='Y');
 }
+//--------------------------------------------------------------------------
 
-
+//-------------------------FUNCTION TO REMOVE BOOKS--------------------------
 void books::remove_book()
 {
  char ch = 'y';
@@ -266,8 +284,9 @@ void books::remove_book()
  }
 while(ch=='y' || ch=='Y');
 }
+//--------------------------------------------------------------------------
 
-
+//----------------------FUNCTION TO DISPLAY BOOKS---------------------------
 void books::display_books()
 {
  clrscr();
@@ -289,8 +308,9 @@ void books::display_books()
  cout<<"\nNo more books. Press any key to continue.\n";
  getch();
 }
+//--------------------------------------------------------------------------
 
-
+//-------------------FUNCTION TO ADD BOOKS----------------------------------
 void books::add_book()
 {
  strcpy(book.get_book_avail(),"Available");
@@ -307,11 +327,7 @@ void books::add_book()
  while(ch=='y' || ch=='Y');
  book_out.close();
 }
-
 //--------------------------------------------------------
-
-
-
 
 
 //---------------Class MEMBER------------------------------
@@ -325,11 +341,14 @@ class member
 
  public:
 
+//----------------CONSTRUCTOR OF CLASS MEMBER-------------------------------
  member()
  {
   strcpy(borrowed_book,"No Books borrowed");
  }
+//--------------------------------------------------------------------------
 
+//---------------------------GETTER FUNCTIONS-------------------------------
  char* get_user()
  {
   return user;
@@ -346,16 +365,20 @@ class member
  {
   return borrowed_book;
  }
+//--------------------------------------------------------------------------
 
+//----------------------FUNCTION TO SHOW MEMBER DETAILS---------------------
  void show_member_details()
   {
    cout<<"\nName:\t\t"<<user;
    cout<<"\nPhone:\t\t"<<phone;
    cout<<"\nBook Borrowed:\t"<<borrowed_book;
-   cout<<"\n\nPress any key to show next book\n";
+   cout<<"\n\nPress any key to show next member\n";
    getch();
   }
+//--------------------------------------------------------------------------
 
+//----------------------FUNCTION TO GET MEMBER DETAILS----------------------
  void new_member_details()
  {
   clrscr();
@@ -368,14 +391,16 @@ class member
   cout<<"\nPhone: ";
   cin>>phone;
  }
+//--------------------------------------------------------------------------
 
+//---------------FUNCTION TO COPY NEW NAME OF BORROWED BOOK-----------------
  void assign_borrowed_book(char b_name[])
  {
   strcpy(borrowed_book,b_name);
  }
+//--------------------------------------------------------------------------
 
- int check_can_borrow(char usr[]);
-
+//-----------FUNCTION TO CHECK USER AND PASS FOR MEMBER LOGIN---------------
  int check_login(char u_input[],char p_input[])
  {
    if(strcmp(u_input,user)==0 && strcmp(p_input,pass)==0)
@@ -384,25 +409,39 @@ class member
    }
    else return -1;
  }
+//--------------------------------------------------------------------------
 
+//-------------FUNCTION TO DISPLAY LIBRARY HOME IN CLASS MEMBER-------------
  void home();
+//--------------------------------------------------------------------------
 
+//------------FUNCTION TO SUBSCRIBE AS A MEMBER IN CLASS MEMBER-------------
  void subscribe();
+//--------------------------------------------------------------------------
 
+//-----------FUNCTIONS TO BROWSE/SEARCH FOR BOOKS IN CLASS MEMBER-----------
  void browse_books();
  void browse_by_name();
  void browse_by_author();
+//--------------------------------------------------------------------------
 
+//--------------FUNCTIONS TO BORROW/RETURN BOOKS IN CLASS MEMBER------------
  void borrow_book(char b_name[]);
  void return_book();
+//--------------------------------------------------------------------------
 
- void change_borrowed_book(char b_name[]); //updates borrowed book
- void return_borrowed_book();//opposite of change_borrowed_book()
+//---------FUNCTIONS FOR BORROWED BOOK BY MEMBERS IN CLASS MEMBER-----------
+ void change_borrowed_book(char b_name[]);
+ void return_borrowed_book();
  void display_borrowed_books();
+ int check_can_borrow(char usr[]);
+//--------------------------------------------------------------------------
 };
 
 member mem;
+//--------------------------------------------------------------------------
 
+//----------------FUNCTION FOR USER TO SUBSCRIBE AS MEMBER------------------
 void member::subscribe()
 {
  clrscr();
@@ -419,8 +458,9 @@ void member::subscribe()
  getch();
  main_screen();
 }
+//--------------------------------------------------------------------------
 
-
+//-------------FUNCTION TO RETURN BORROWED BOOK FOR MEMBER------------------
 void member::return_borrowed_book()
 {
  int found = -1;
@@ -449,7 +489,9 @@ void member::return_borrowed_book()
  getch();
  }
 }
+//--------------------------------------------------------------------------
 
+//---------------FUNCTION TO UPDATE BORROWED BOOK FOR MEMBER----------------
 void member::change_borrowed_book(char b_name[])
 {
  int found = -1;
@@ -478,8 +520,9 @@ void member::change_borrowed_book(char b_name[])
  getch();
  }
 }
+//--------------------------------------------------------------------------
 
-
+//------------------FUNCTION TO CHECK IF MEMBER CAN BORROW------------------
 int member::check_can_borrow(char usr[20])
  {
   ifstream mem_in("members.dat",ios::binary|ios::in);
@@ -497,8 +540,9 @@ int member::check_can_borrow(char usr[20])
 
  return -1;
 }
+//--------------------------------------------------------------------------
 
-
+//----------------------FUNCTION TO RETURN A BOOK---------------------------
 void member::return_book()
 {
  char ch;
@@ -508,31 +552,27 @@ void member::return_book()
 
  if(ch=='Y' || ch=='y')
  {
- //-----------Changing Availability  of book---------------------
- book.change_avail_available(mem.get_borrowed_book());
-
- //-----------Changing borrowed books for member---------------------------------
-  mem.return_borrowed_book();
-  cout<<"Book has successfully been returned!";
-  getch();
+ book.change_avail_available(mem.get_borrowed_book());//MAKING BOOK "AVAILABLE"
+ mem.return_borrowed_book(); //RETURNING BORROWED BOOK
+ cout<<"Book has successfully been returned!";
+ getch();
  }
  mem.home();
 }
+//--------------------------------------------------------------------------
 
-
+//--------------------FUNCTION TO BORROW BOOK-------------------------------
 void member::borrow_book(char b_name[])
 {
  clrscr();
  char bk_name[20];
  strcpy(bk_name,b_name);
-
- //-----------Changing Availability  of book---------------------
- book.change_avail_borrowed(b_name);
- //-----------Changing borrowed books for member---------------------------------
- mem.change_borrowed_book(bk_name);
+ book.change_avail_borrowed(b_name);//AVAILABILITY OF BOOK CHANGED
+ mem.change_borrowed_book(bk_name);//NAME OF BORROWED BOOK UPDATED
 }
+//--------------------------------------------------------------------------
 
-
+//-----------------FUNCTION TO DISPLAY BORROWED BOOKS-----------------------
 void member::display_borrowed_books()
 {
  clrscr();
@@ -566,8 +606,9 @@ void member::display_borrowed_books()
   }
  book_in.close();
 }
+//--------------------------------------------------------------------------
 
-
+//------------FUNCTION TO SEARCH/BROWSE BOOKS BY BOOK NAME------------------
 void member::browse_by_name()
 {
  clrscr();
@@ -630,8 +671,9 @@ void member::browse_by_name()
 
  mem.home();
 }
+//--------------------------------------------------------------------------
 
-
+//----------FUNCTION TO SEARCH/BROWSE BOOKS BY AUTHOR NAME------------------
 void member::browse_by_author()
 {
  clrscr();
@@ -693,8 +735,9 @@ void member::browse_by_author()
  }
  mem.home();
 }
+//--------------------------------------------------------------------------
 
-
+//------------FUNCTION TO SELECT HOW TO SEARCH/BROWSE BOOKS-----------------
 void member::browse_books()
 {
  clrscr();
@@ -723,8 +766,9 @@ void member::browse_books()
   }
   getch();
 }
+//--------------------------------------------------------------------------
 
-
+//---------------FUNCTION TO DISPLAY LIBRARY HOME PAGE----------------------
 void member::home()
  {
   clrscr();
@@ -753,42 +797,35 @@ void member::home()
   }
   getch();
  }
+//--------------------------------------------------------------------------
 
 
-
-//------------------------------------------------------------------------
-
-
-
-//---------------------CLASS ADMIN----------------------------------------
-
-
+//-----------------------CLASS ADMIN----------------------------------------
 class admin
 {
   public:
-
+//----------------FUNCTION FOR ADMIN PANEL IN CLASS ADMIN-------------------
   void admin_panel();
+//--------------------------------------------------------------------------
 
-  //-----------FUNCTIONS ON LIBRARY MEMBERS IN CLASS ADMIN---------------------
+//-----------FUNCTIONS FOR LIBRARY MEMBERS IN CLASS ADMIN-------------------
 
   void member_operations();
   void add_member();
   void remove_member();
   void modify_member();
   void display_members();
+//--------------------------------------------------------------------------
 
-
-  //---------------------BOOK FUNCTIONS IN CLASS ADMIN---------------------
+//---------------------BOOK FUNCTIONS IN CLASS ADMIN------------------------
   void book_operations();
-  //-------------------------------------------------------------
+//--------------------------------------------------------------------------
 };
 
 admin admin;
-//-------------------------------------------------------------------------
+//--------------------------------------------------------------------------
 
-
-//-----------------------ADMIN OPERATIONS ON MEMBERS-----------------------
-
+//------------------------FUNCTION TO MODIFY MEMBER-------------------------
 void admin::modify_member()
 {
  char ch = 'y';
@@ -828,8 +865,9 @@ void admin::modify_member()
 }
 while(ch=='y' || ch=='Y');
 }
+//--------------------------------------------------------------------------
 
-
+//--------------------------FUNCTION TO REMOVE MEMBER-----------------------
 void admin::remove_member()
 {
  char ch = 'y';
@@ -876,9 +914,9 @@ void admin::remove_member()
  }
 while(ch=='y' || ch=='Y');
 }
+//--------------------------------------------------------------------------
 
-
-
+//------------------------FUNCTION TO ADD MEMBER----------------------------
 void admin::add_member()
 {
  char ch = 'y';
@@ -912,11 +950,9 @@ void admin::display_members()
  cout<<"\nNo more members. Press any key to continue.\n";
  getch();
 }
+//--------------------------------------------------------------------------
 
-
-//-------------------------------------------------------------------------
-
-//----------------------------ADMIN PANEL------------------------------------
+//--------------------FUNCTION TO SHOW ADMIN PANEL--------------------------
 void admin::admin_panel()
   {
    clrscr();
@@ -943,10 +979,9 @@ void admin::admin_panel()
     break;
    }
   }
+//--------------------------------------------------------------------------
 
- //-------------------------------------------------------------------------
- //----------------------------ADMIN PANEL FUNCTIONS------------------------
-
+//-------------------FUNCTION TO SELECT OPERATION ON MEMBERS----------------
 void admin::member_operations()
   {
    clrscr();
@@ -977,7 +1012,9 @@ void admin::member_operations()
      }
    member_operations();
   }
+//--------------------------------------------------------------------------
 
+//--------------------FUNCTION TO SELECT OPERATION ON BOOKS-----------------
 void admin::book_operations()
   {
    clrscr();
@@ -1008,12 +1045,9 @@ void admin::book_operations()
      }
      book_operations();
   }
+//--------------------------------------------------------------------------
 
- //--------------------------------------------------------------------------
-
- //----------------------------GLOBAL FUNCTIONS-------------------------------
-
-
+//----------------------------GLOBAL FUNCTIONS------------------------------
 void admin_access()
 {
  int i;
@@ -1053,10 +1087,9 @@ admin.admin_panel();
 
  main_screen();
 }
+//--------------------------------------------------------------------------
 
-
-
-
+//---------------------------MEMBER LOGIN-----------------------------------
 void mem_login()
  {
   char pass_input[20];
@@ -1102,11 +1135,9 @@ void mem_login()
 
  main_screen();
 }
+//--------------------------------------------------------------------------
 
-
-
-
-
+//--------------------------STARTING SCREEN---------------------------------
 void main_screen()
 {
  clrscr();
@@ -1138,11 +1169,7 @@ void main_screen()
   }
 }
 
-
-
-
-
-
+//--------------------------------------------------------------------------
 
 void reset() //TEST FUNCTION
 
